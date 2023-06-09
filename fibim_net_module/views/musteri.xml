@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="musteri_tree" model="ir.ui.view">
+        <field name="name">fibim.musteri.tree</field>
+        <field name="model">fibim.musteri</field>
+        <field name="arch" type="xml">
+            <tree string="Müşteriler">
+                <field name="abone_no"/>
+                <field name="abone_kullanici_isim"/>
+                <field name="abone_isim"/>
+                <field name="abone_soyisim"/>
+                <field name="abone_tarife"/>
+                <field name="abone_tarife_fiyat" sum="Aylık Gelir (₺)"/>
+                <field name="abone_tarife_down" sum="Download Hızı (Mbps)"/>
+                <field name="abone_tarife_up" sum="Upload Hızı (Mbps)"/>
+                <field name="abone_tel"/>
+                <field name="abone_durum"/>
+                <field name="abone_uyelik_bas"/>
+                <field name="abone_uyelik_bit"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="musteri_form" model="ir.ui.view">
+        <field name="name">fibim.musteri.form</field>
+        <field name="model">fibim.musteri</field>
+        <field name="arch" type="xml">
+            <form class="Müşteriler">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="abone_tc"/>
+                            <field name="abone_isim" style="text-transform: uppercase;"/>
+                            <field name="abone_soyisim" style="text-transform: uppercase;"/>
+                            <field name="abone_dogum_tarihi"/>
+                        </group>
+                        <group>
+                            <field name="abone_dogrulama"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="abone_id" invisible="1"/>
+                            <field name="abone_no" attrs="{'invisible': [('abone_ilce_kodu', '=', False)]}"/>
+                            <field name="abone_kullanici_isim" style="text-transform: lowercase;"/>
+                            <field name="abone_tel"/>
+                            <field name="abone_dogum_yeri" style="text-transform: uppercase;"/>
+                            <field name="abone_mail" style="text-transform: uppercase;"/>
+                            <field name="abone_durum"/>
+                            <field name="abone_sifre"/>
+                        </group>
+                        <group>
+                            <field name="abone_anne_isim" style="text-transform: uppercase;"/>
+                            <field name="abone_baba_isim" style="text-transform: uppercase;"/>
+                            <field name="abone_uyelik_bas"/>
+                            <field name="abone_uyelik_bit"/>
+                            <field name="abone_tarife"/>
+                            <label for="abone_tarife_fiyat"/>
+                            <div class="o_row">
+                                <field name="abone_tarife_fiyat"/>
+                                <span>₺</span>
+                            </div>
+                            <field name="abone_modem_ucret"/>
+                        </group>
+                    </group>
+                    <group>
+                        <notebook>
+                            <page string="Adres Bilgileri">
+                                <group>
+                                    <group>
+                                        <field name="abone_adres" style="text-transform: uppercase;"/>
+                                    </group>
+                                    <group>
+                                        <field name="abone_ililce"/>
+                                        <field name="abone_il"/>
+                                        <field name="abone_il_kodu" invisible="1"/>
+                                        <field name="abone_ilce_kodu" invisible="1"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="abone_fatura_adres" style="text-transform: uppercase;"/>
+                                    </group>
+                                    <group>
+                                        <field name="abone_faturaililce"/>
+                                        <field name="abone_faturail"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Ürün Bilgileri">
+                                <group>
+                                    <field name="abone_urun"/>
+                                </group>
+                            </page>
+                            <page string="Mikrotik Bilgisi">
+                                <group>
+                                    <field name="abone_mikrotik"/>
+                                </group>
+                            </page>
+                            <page string="Teknik Servis Bilgisi">
+                                <group>
+                                    <field name="abone_teknikservis" domain="[('department_id', '=', 'Teknik Servis')]"/>
+                                </group>
+                            </page>
+                            <page string="Bayi Bilgisi">
+                                <group>
+                                    <field name="abone_bolge_bayi"
+                                           attrs="{'invisible':['|',('abone_il_bayi','!=',False),('abone_ilce_bayi','!=',False)]}"/>
+                                    <field name="abone_il_bayi"
+                                           attrs="{'invisible':['|',('abone_bolge_bayi','!=',False),('abone_ilce_bayi','!=',False)]}"/>
+                                    <field name="abone_ilce_bayi"
+                                           attrs="{'invisible':['|',('abone_bolge_bayi','!=',False),('abone_il_bayi','!=',False)]}"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="fibim_musteri_search" model="ir.ui.view">
+        <field name="name">fibim.musteri.search</field>
+        <field name="model">fibim.musteri</field>
+        <field name="arch" type="xml">
+            <search string="Müşteri Ara">
+                <field name="abone_no" filter_domain="['|', ('abone_no', 'ilike', self)
+                , ('abone_kullanici_isim', 'ilike', self)]"/>
+                <filter string="Aktif" name="aktif" domain="[('abone_durum', '=', 'abone_aktif')]"/>
+                <filter string="Pasif" name="pasif" domain="[('abone_durum', '=', 'abone_pasif')]"/>
+                <filter string="İptal" name="iptal" domain="[('abone_durum', '=', 'abone_iptal')]"/>
+                <filter string="Kiralık Modem" name="kiralikmodem"
+                        domain="[('abone_modem_ucret', '=', 'abone_modem_kiralik')]"/>
+                <filter string="Depozitolu Modem" name="depozitolumodem"
+                        domain="[('abone_modem_ucret', '=', 'abone_modem_depozito')]"/>
+                <group expand="0" string="Grupla">
+                    <filter string="Durum" name="durum" context="{'group_by':'abone_durum'}"/>
+                    <filter string="Tarife" name="tarife" context="{'group_by':'abone_tarife'}"/>
+                    <filter string="Mikrotik" name="mikrotik" context="{'group_by':'abone_mikrotik'}"/>
+                    <filter string="Modem Ücreti" name="modemucreti" context="{'group_by':'abone_modem_ucret'}"/>
+                    <filter string="İlçe" name="aboneilce" context="{'group_by':'abone_ililce'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fibim_musteri_graph">
+        <field name="name">fibim.musteri.graph</field>
+        <field name="model">fibim.musteri</field>
+        <field name="arch" type="xml">
+            <graph string="Müşteri Grafiği" type="pie">
+                <field name="abone_tarife"/>
+            </graph>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fibim_musteri_pivot">
+        <field name="name">fibim.musteri.pivot</field>
+        <field name="model">fibim.musteri</field>
+        <field name="arch" type="xml">
+            <pivot string="Müşteri Pivot">
+                <field name="abone_tarife" type="row"/>
+                <field name="abone_durum" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_musteri" model="ir.actions.act_window">
+        <field name="name">Müşteriler</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fibim.musteri</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                İlk Müşteriyi Kaydet !
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="FibimNET" id="fibim_root" sequence="0" web_icon="fibim_net_module,static/description/icon.png"/>
+    <menuitem name="Müşteriler" id="fibim_musteri"  sequence="3" parent="fibim_root" action="action_musteri"/>
+
+</odoo>

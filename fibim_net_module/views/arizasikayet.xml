@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="arizasikayet_tree" model="ir.ui.view">
+        <field name="name">fibim.arizasikayet.tree</field>
+        <field name="model">fibim.arizasikayet</field>
+        <field name="arch" type="xml">
+            <tree string="Arıza Şikayet" decoration-danger="ariza_abone_durumu_yazi=='Sorun Var'"
+                  decoration-success="ariza_abone_durumu_yazi=='Çözüldü'" decoration-bf="True">
+                <field name="ariza_abone_no"/>
+                <field name="ariza_abone_isim"/>
+                <field name="ariza_abone_soyisim"/>
+                <field name="ariza_abone_tel"/>
+                <field name="ariza_abone_tip"/>
+                <field name="ariza_abone_ililce"/>
+                <field name="ariza_abone_il"/>
+                <field name="ariza_abone_teknikservis"/>
+                <field name="ariza_abone_tarihbas"/>
+                <field name="ariza_abone_tarihbit"/>
+                <field name="ariza_giderilmesuresidak" avg="Arıza Giderilme Süresi (Ort)"/>
+                <field name="ariza_abone_durumu_yazi"/>
+                <field name="ariza_abone_adres"/>
+                <field name="ariza_abone_aciklama"/>
+                <field name="ariza_abone_cozumaciklama"/>
+                <field name="ariza_abone_tur"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="arizasikayet_form" model="ir.ui.view">
+        <field name="name">fibim.arizasikayet.form</field>
+        <field name="model">fibim.arizasikayet</field>
+        <field name="arch" type="xml">
+            <form class="Arıza Şikayet">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="ariza_whatsapptus" string="Whatsapp" type="object"
+                                icon="fa-whatsapp" class="oe_stat_button">
+                        </button>
+                        <button name="digeraboneariza" type="object"
+                                icon="fa-exclamation" class="oe_stat_button">
+                            <field name="ariza_digerarizalarsayac" string="Diğer Arızaları" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="ariza_kayitli_abone_sec"/>
+                            <field name="ariza_abone_no"/>
+                            <field name="ariza_abone_isim" style="text-transform: uppercase;"/>
+                            <field name="ariza_abone_soyisim" style="text-transform: uppercase;"/>
+                            <field name="ariza_abone_tel"/>
+                            <field name="ariza_abone_tip"/>
+                            <field name="ariza_whatsappotomesaj" invisible="1"/>
+                            <field name="ariza_abone_teknikservistel" invisible="1"/>
+                            <field name="ariza_abone_il_yazi" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="ariza_abone_teknikservis" domain="[('department_id', '=', 'Teknik Servis')]"/>
+                            <label for="ariza_abone_tarihbas"/>
+                            <div class="o_row">
+                                <field name="ariza_abone_tarihbas"/>
+                                <span>
+                                    <field name="ariza_abone_tarihbas_an"/>
+                                </span>
+                            </div>
+                            <label for="ariza_abone_tarihbit"/>
+                            <div class="o_row">
+                                <field name="ariza_abone_tarihbit"/>
+                                <span>
+                                    <field name="ariza_abone_tarihbit_an"/>
+                                </span>
+                            </div>
+                            <field name="ariza_giderilmesuresidak"/>
+                            <label for="ariza_abone_durumu_yazi"/>
+                            <div class="o_row">
+                                <field name="ariza_abone_durumu_yazi"/>
+                                <span>
+                                    <field name="ariza_abone_durumu"/>
+                                </span>
+                            </div>
+                            <field name="ariza_abone_tur"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="ariza_abone_adres" style="text-transform: uppercase;"/>
+                            <field name="ariza_abone_ililce"/>
+                            <field name="ariza_abone_il"/>
+                        </group>
+                        <group>
+                            <field name="ariza_abone_aciklama"/>
+                            <field name="ariza_abone_cozumaciklama"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="fibim_arizasikayet_search" model="ir.ui.view">
+        <field name="name">fibim.arizasikayet.search</field>
+        <field name="model">fibim.arizasikayet</field>
+        <field name="arch" type="xml">
+            <search string="Müşteri Ara">
+                <field name="ariza_abone_no"/>
+                <field name="ariza_abone_isim"/>
+                <field name="ariza_abone_soyisim"/>
+                <field name="ariza_abone_tel"/>
+                <field name="ariza_abone_ililce"/>
+                <field name="ariza_abone_adres"/>
+                <field name="ariza_abone_aciklama"/>
+                <field name="ariza_abone_cozumaciklama"/>
+                <filter string="Bireysel" name="bireysel" domain="[('ariza_abone_tur', '=', 'ariza_abone_bireysel')]"/>
+                <filter string="Kurumsal" name="kurumsal" domain="[('ariza_abone_tur', '=', 'ariza_abone_kurumsal')]"/>
+                <filter string="Esnaf" name="esnaf" domain="[('ariza_abone_tur', '=', 'ariza_abone_esnaf')]"/>
+                <filter string="Arıza" name="ariza"
+                        domain="[('ariza_abone_tip', '=', 'abone_ariza')]"/>
+                <filter string="Şikayet" name="sikayet"
+                        domain="[('ariza_abone_tip', '=', 'abone_sikayet')]"/>
+                <filter string="Sorun Var" name="sorunvar"
+                        domain="[('ariza_abone_durumu_yazi', '=', 'Sorun Var')]"/>
+                <filter string="Çözüldü" name="cozuldu"
+                        domain="[('ariza_abone_durumu_yazi', '=', 'Çözüldü')]"/>
+                <group expand="0" string="Grupla">
+                    <filter string="Tür" name="tur" context="{'group_by':'ariza_abone_tur'}"/>
+                    <filter string="Tip" name="tip" context="{'group_by':'ariza_abone_tip'}"/>
+                    <filter string="Arıza Durumu" name="durum" context="{'group_by':'ariza_abone_durumu_yazi'}"/>
+                    <filter string="Teknik Servis" name="teknikservis"
+                            context="{'group_by':'ariza_abone_teknikservis'}"/>
+                    <filter string="İlçe" name="ilce" context="{'group_by':'ariza_abone_ililce'}"/>
+                    <filter string="İl" name="il" context="{'group_by':'ariza_abone_il_yazi'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fibim_arizasikayet_pivot">
+        <field name="name">fibim.arizasikayet.pivot</field>
+        <field name="model">fibim.arizasikayet</field>
+        <field name="arch" type="xml">
+            <pivot string="Arıza Pivot">
+                <field name="ariza_abone_teknikservis" type="row"/>
+                <field name="ariza_abone_durumu_yazi" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fibim_arizasikayet_graph">
+        <field name="name">fibim.arizasikayet.graph</field>
+        <field name="model">fibim.arizasikayet</field>
+        <field name="arch" type="xml">
+            <graph string="Müşteri Arıza Şikayet Grafiği" type="pie">
+                <field name="ariza_abone_durumu_yazi"/>
+            </graph>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fibim_arizasikayet_calendar">
+        <field name="name">fibim.arizasikayet.calendar</field>
+        <field name="model">fibim.arizasikayet</field>
+        <field name="arch" type="xml">
+            <calendar string="Arıza Takvimi" date_start="ariza_abone_tarihbas" date_stop="ariza_abone_tarihbit"
+                      color="ariza_abone_no" mode="month" quick_add="False">
+                <field name="ariza_abone_isim"/>
+                <field name="ariza_abone_soyisim"/>
+                <field name="ariza_abone_tarihbas"/>
+                <field name="ariza_abone_tarihbit"/>
+                <field name="ariza_giderilmesuresidak"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="action_arizasikayet" model="ir.actions.act_window">
+        <field name="name">Arıza Şikayet</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fibim.arizasikayet</field>
+        <field name="view_mode">tree,form,pivot,graph,calendar</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                İlk Arıza Şikayet Kaydet !
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Arıza Şikayet" id="fibim_arizasikayet" sequence="1" parent="fibim_root"
+              action="action_arizasikayet"/>
+</odoo>

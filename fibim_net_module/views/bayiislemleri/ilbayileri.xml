@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="ilbayileri_tree" model="ir.ui.view">
+        <field name="name">fibim.ilbayileri.tree</field>
+        <field name="model">fibim.ilbayileri</field>
+        <field name="arch" type="xml">
+            <tree string="İl Bayileri">
+                <field name="il_bayi_yetkilisi"/>
+                <field name="il_bayi_adres"/>
+                <field name="il_bayi_ililce"/>
+                <field name="il_bayi_ili"/>
+                <field name="il_bayi_sssec"/>
+                <field name="il_bayi_sirket"/>
+            </tree>
+        </field>
+    </record>
+    <record id="ilbayileri_form" model="ir.ui.view">
+        <field name="name">fibim.ilbayileri.form</field>
+        <field name="model">fibim.ilbayileri</field>
+        <field name="arch" type="xml">
+            <form class="İl Bayileri">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="il_bayi_yetkilisi"/>
+                            <field name="il_bayi_adres"/>
+                            <field name="il_bayi_ililce"/>
+                            <field name="il_bayi_ili"/>
+                        </group>
+                        <group>
+                            <field name="il_bayi_sssec" nolabel="1" widget="radio"/>
+                            <field name="il_bayi_sirket" attrs="{'invisible': [('il_bayi_sssec', '=', 'il_bayi_sahissec')]}"/>
+                        </group>
+                        <group string="Bağlı Olduğu">
+                            <field name="il_bayi_baglibolge"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="fibim_ilbayileri_search" model="ir.ui.view">
+        <field name="name">fibim.ilbayileri.search</field>
+        <field name="model">fibim.ilbayileri</field>
+        <field name="arch" type="xml">
+            <search string="İl Bayi Ara">
+                <filter string="Şahıs" name="sahis" domain="[('il_bayi_sssec', '=', 'il_bayi_sahissec')]"/>
+                <filter string="Şirket" name="sirket" domain="[('il_bayi_sssec', '=', 'il_bayi_sirketsec')]"/>
+                <group expand="0" string="Grupla">
+                    <filter string="Bölge" name="bolge" context="{'group_by':'il_bayi_baglibolge'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ilbayileri" model="ir.actions.act_window">
+        <field name="name">İl Bayileri</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fibim.ilbayileri</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                İlk İl Bayisini Kaydet !
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem name="İl Bayileri" id="fibim_ilbayileri" parent="fibim_bayiislemleri" action="action_ilbayileri"/>
+</odoo>

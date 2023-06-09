@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="report_musteri_card"
+            string="Müşteri Kart"
+            model="fibim.musteri"
+            report_type="qweb-pdf"
+            name="fibim_net_module.report_musteri"
+            file="fibim_net_module.report_musteri"/>
+
+</odoo>
+

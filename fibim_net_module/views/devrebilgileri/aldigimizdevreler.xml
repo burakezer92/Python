@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="aldigimizdevreler_tree" model="ir.ui.view">
+        <field name="name">fibim.aldigimizdevreler.tree</field>
+        <field name="model">fibim.aldigimizdevreler</field>
+        <field name="arch" type="xml">
+            <tree string="Aldığımız Devreler">
+                <field name="alinan_sirket"/>
+                <field name="alinan_devre_no"/>
+                <field name="alinan_devre_ip_adresi"/>
+                <field name="alinan_devre_download"/>
+                <field name="alinan_devre_upload"/>
+                <field name="alinan_sirket_yetkilisi"/>
+                <field name="alinan_fibim_yetkilisi"/>
+            </tree>
+        </field>
+    </record>
+    <record id="aldigimizdevreler_form" model="ir.ui.view">
+        <field name="name">fibim.aldigimizdevreler.form</field>
+        <field name="model">fibim.aldigimizdevreler</field>
+        <field name="arch" type="xml">
+            <form class="Aldığımız Devreler">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="alinan_devre_no"/>
+                            <field name="alinan_devre_ip_adresi"/>
+                            <label for="alinan_devre_download"/>
+                            <div class="o_row">
+                                <field name="alinan_devre_download"/>
+                                <span>Mbps</span>
+                            </div>
+                            <label for="alinan_devre_upload"/>
+                            <div class="o_row">
+                                <field name="alinan_devre_upload"/>
+                                <span>Mbps</span>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="alinan_sirket"/>
+                            <field name="alinan_sirket_yetkilisi"/>
+                            <field name="alinan_fibim_yetkilisi"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_aldigimizdevreler" model="ir.actions.act_window">
+        <field name="name">Aldığımız Devreler</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fibim.aldigimizdevreler</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                İlk Aldığımız Devreyi Kaydet !
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Devre Bilgileri" id="fibim_devrebilgileri" parent="fibim_root" sequence="11"/>
+    <menuitem name="Aldığımız Devreler" id="fibim_aldigimizdevreler" parent="fibim_devrebilgileri"
+              action="action_aldigimizdevreler"/>
+</odoo>

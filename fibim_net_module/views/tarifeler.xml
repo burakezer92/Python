@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="tarife_tree" model="ir.ui.view">
+        <field name="name">fibim.tarife.tree</field>
+        <field name="model">fibim.tarife</field>
+        <field name="arch" type="xml">
+            <tree string="Tarifeler">
+                <field name="tarife_adi"/>
+                <field name="tarife_tipi"/>
+                <field name="tarife_fiyat"/>
+                <field name="tarife_down"/>
+                <field name="tarife_up"/>
+                <field name="tarife_taahhut"/>
+            </tree>
+        </field>
+    </record>
+    <record id="tarife_form" model="ir.ui.view">
+        <field name="name">fibim.tarife.form</field>
+        <field name="model">fibim.tarife</field>
+        <field name="arch" type="xml">
+            <form class="Tarifeler">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="tarifeyi_kullanan_musteriler" string="Müşteri Sayısı" type="object"
+                                icon="fa-plus-square" class="oe_stat_button">
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="tarife_adi"/>
+                            <field name="tarife_tipi"/>
+                            <label for="tarife_down"/>
+                            <div class="o_row">
+                                <field name="tarife_down"/>
+                                <span>Mbps</span>
+                            </div>
+                            <label for="tarife_up"/>
+                            <div class="o_row">
+                                <field name="tarife_up"/>
+                                <span>Mbps</span>
+                            </div>
+                        </group>
+                        <group>
+                            <label for="tarife_fiyat"/>
+                            <div class="o_row">
+                                <field name="tarife_fiyat"/>
+                                <span>₺</span>
+                            </div>
+                            <field name="tarife_bitis_tarihi"/>
+                            <field name="tarife_taahhut"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="fibim_tarife_search" model="ir.ui.view">
+        <field name="name">fibim.tarife.search</field>
+        <field name="model">fibim.tarife</field>
+        <field name="arch" type="xml">
+            <search string="Tarife Ara">
+                <field name="tarife_adi" filter_domain="['|', ('tarife_adi', 'ilike', self)
+                , ('tarife_fiyat', 'ilike', self)]"/>
+                <filter string="Bireysel" name="bireysel" domain="[('tarife_tipi', '=', 'tarife_bireysel')]"/>
+                <filter string="Kurumsal" name="kurumsal" domain="[('tarife_tipi', '=', 'tarife_kurumsal')]"/>
+                <filter string="Görevli" name="gorevli" domain="[('tarife_tipi', '=', 'tarife_gorevli')]"/>
+                <filter string="Taahhütsüz" name="taahhutsuz" domain="[('tarife_taahhut', '=', 'tarife_taahhutsuz')]"/>
+                <filter string="12 Ay Taahhütlü" name="12taahhut"
+                        domain="[('tarife_taahhut', '=', 'tarife_12taahhut')]"/>
+                <filter string="24 Ay Taahhütlü" name="24taahhut"
+                        domain="[('tarife_taahhut', '=', 'tarife_24taahhut')]"/>
+                <group expand="0" string="Grupla">
+                    <filter string="Tip" name="tip" context="{'group_by':'tarife_tipi'}"/>
+                    <filter string="Taahhüt" name="taahhut" context="{'group_by':'tarife_taahhut'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_tarife" model="ir.actions.act_window">
+        <field name="name">Tarifeler</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fibim.tarife</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                İlk Tarifeyi Kaydet !
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem name="Tarifeler" id="fibim_tarife"  sequence="9" parent="fibim_root" action="action_tarife"/>
+</odoo>

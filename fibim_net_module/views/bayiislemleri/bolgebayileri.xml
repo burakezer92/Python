@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="bolgebayileri_tree" model="ir.ui.view">
+        <field name="name">fibim.bolgebayileri.tree</field>
+        <field name="model">fibim.bolgebayileri</field>
+        <field name="arch" type="xml">
+            <tree string="Bölge Bayileri">
+                <field name="bolge_bayi_bolgesi"/>
+                <field name="bolge_bayi_yetkilisi"/>
+                <field name="bolge_bayi_adres"/>
+                <field name="bolge_bayi_ililce"/>
+                <field name="bolge_bayi_il"/>
+            </tree>
+        </field>
+    </record>
+    <record id="bolgebayileri_form" model="ir.ui.view">
+        <field name="name">fibim.bolgebayileri.form</field>
+        <field name="model">fibim.bolgebayileri</field>
+        <field name="arch" type="xml">
+            <form class="Bölge Bayileri">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="bolge_bayi_bolgesi"/>
+                            <field name="bolge_bayi_yetkilisi"/>
+                            <field name="bolge_bayi_adres"/>
+                            <field name="bolge_bayi_ililce"/>
+                            <field name="bolge_bayi_il"/>
+                        </group>
+                        <group>
+                            <field name="bolge_bayi_sssec" nolabel="1" widget="radio"/>
+                            <field name="bolge_bayi_sirket" attrs="{'invisible': [('bolge_bayi_sssec', '=', 'bolge_bayi_sahissec')]}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_bolgebayileri" model="ir.actions.act_window">
+        <field name="name">Bölge Bayileri</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fibim.bolgebayileri</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                İlk Bölge Bayisini Kaydet !
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Bayi İşlemleri" id="fibim_bayiislemleri" parent="fibim_root" sequence="10"/>
+    <menuitem name="Bölge Bayileri" id="fibim_bolgebayileri" parent="fibim_bayiislemleri"
+              action="action_bolgebayileri"/>
+</odoo>

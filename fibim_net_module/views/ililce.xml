@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="ililce_tree" model="ir.ui.view">
+        <field name="name">fibim.ililce.tree</field>
+        <field name="model">fibim.ililce</field>
+        <field name="arch" type="xml">
+            <tree string="İl İlçe Bilgileri">
+                <field name="turkiye_il"/>
+                <field name="turkiye_ilce"/>
+                <field name="turkiye_il_kodu"/>
+                <field name="turkiye_ilce_kodu"/>
+            </tree>
+        </field>
+    </record>
+    <record id="ililce_form" model="ir.ui.view">
+        <field name="name">fibim.ililce.form</field>
+        <field name="model">fibim.ililce</field>
+        <field name="arch" type="xml">
+            <form class="İl İlçe Bilgileri">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="turkiye_il"/>
+                            <field name="turkiye_ilce"/>
+                            <field name="turkiye_il_kodu"/>
+                            <field name="turkiye_ilce_kodu"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_ililce" model="ir.actions.act_window">
+        <field name="name">İl İlçe Bilgileri</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fibim.ililce</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                İlk İl İlçe Bilgisini Kaydet !
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem name="İl İlçe Bilgileri" id="fibim_ililce" sequence="4" parent="fibim_root" action="action_ililce"/>
+</odoo>

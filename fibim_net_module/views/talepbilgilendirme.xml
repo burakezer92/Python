@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="talepbilgilendirme_tree" model="ir.ui.view">
+        <field name="name">fibim.talepbilgilendirme.tree</field>
+        <field name="model">fibim.talepbilgilendirme</field>
+        <field name="arch" type="xml">
+            <tree string="Talep Bilgilendirme" decoration-warning="talep_abone_tip=='abone_talep'" decoration-info="talep_abone_tip=='abone_bilgilendirme'" decoration-bf="True">
+                <field name="talep_abone_isim"/>
+                <field name="talep_abone_soyisim"/>
+                <field name="talep_abone_tel"/>
+                <field name="talep_abone_tip"/>
+                <field name="talep_abone_ililce"/>
+                <field name="talep_abone_il"/>
+                <field name="talep_abone_adres"/>
+                <field name="talep_abone_satispazarlama"/>
+                <field name="talep_abone_tarih"/>
+                <field name="talep_abone_hiz"/>
+                <field name="talep_abone_aciklama"/>
+                <field name="talep_abone_tur"/>
+                <field name="talep_abone_durumu_yazi"/>
+                <field name="talep_abone_olusturan"/>
+            </tree>
+        </field>
+    </record>
+    <record id="talepbilgilendirme_form" model="ir.ui.view">
+        <field name="name">fibim.talepbilgilendirme.form</field>
+        <field name="model">fibim.talepbilgilendirme</field>
+        <field name="arch" type="xml">
+            <form class="Talep Bilgilendirme">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="talepbilgilendirme_whatsapptus" string="Whatsapp" type="object"
+                                icon="fa-whatsapp" class="oe_stat_button">
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="talep_abone_isim" style="text-transform: uppercase;"/>
+                            <field name="talep_abone_soyisim" style="text-transform: uppercase;"/>
+                            <field name="talep_abone_tel"/>
+                            <field name="talep_abone_tip"/>
+                            <field name="talep_abone_olusturan"/>
+                            <field name="talep_whatsappotomesaj" invisible="1"/>
+                            <field name="talep_abone_satispazarlamatel" invisible="1"/>
+                            <field name="talep_abone_il_yazi" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="talep_abone_satispazarlama"
+                                   domain="[('department_id', '=', 'Satış Pazarlama')]"/>
+                            <label for="talep_abone_tarih"/>
+                            <div class="o_row">
+                                <field name="talep_abone_tarih"/>
+                                <span>
+                                    <field name="talep_abone_tarih_an"/>
+                                </span>
+                            </div>
+                            <label for="talep_abone_durumu_yazi"/>
+                            <div class="o_row">
+                                <field name="talep_abone_durumu_yazi"/>
+                                <span>
+                                    <field name="talep_abone_durumu"/>
+                                </span>
+                            </div>
+                            <field name="talep_abone_hiz"/>
+                            <field name="talep_abone_tur"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="talep_abone_adres" style="text-transform: uppercase;"/>
+                            <field name="talep_abone_ililce"/>
+                            <field name="talep_abone_il"/>
+                        </group>
+                        <group>
+                            <field name="talep_abone_aciklama"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="fibim_talepbilgilendirme_search" model="ir.ui.view">
+        <field name="name">fibim.talepbilgilendirme.search</field>
+        <field name="model">fibim.talepbilgilendirme</field>
+        <field name="arch" type="xml">
+            <search string="Talep Kayıt Ara">
+                <field name="talep_abone_isim"/>
+                <field name="talep_abone_soyisim"/>
+                <field name="talep_abone_tel"/>
+                <field name="talep_abone_ililce"/>
+                <field name="talep_abone_adres"/>
+                <field name="talep_abone_aciklama"/>
+                <filter string="Talep" name="talep" domain="[('talep_abone_tip', '=', 'abone_talep')]"/>
+                <filter string="Bilgilendirme" name="tip" domain="[('talep_abone_tip', '=', 'abone_bilgilendirme')]"/>
+                <filter string="Bireysel" name="bireysel" domain="[('talep_abone_tur', '=', 'talep_abone_bireysel')]"/>
+                <filter string="Kurumsal" name="kurumsal"
+                        domain="[('talep_abone_tur', '=', 'talep_abone_kurumsal')]"/>
+                <filter string="Esnaf" name="esnaf"
+                        domain="[('talep_abone_tur', '=', 'talep_abone_esnaf')]"/>
+                <filter string="Abonelik Yapılacak" name="abonelikyapilacak"
+                        domain="[('talep_abone_durumu_yazi', '=', 'Abonelik Yapılacak')]"/>
+                <filter string="Abonelik Yapılmadı" name="abonelikyapilmadi"
+                        domain="[('talep_abone_durumu_yazi', '=', 'Abonelik Yapılmadı')]"/>
+                <group expand="0" string="Grupla">
+                    <filter string="Tür" name="tur" context="{'group_by':'talep_abone_tur'}"/>
+                    <filter string="Tip" name="tip" context="{'group_by':'talep_abone_tip'}"/>
+                    <filter string="Hız Talebi" name="hiz" context="{'group_by':'talep_abone_hiz'}"/>
+                    <filter string="Satış Pazarlama" name="satispazarlama" context="{'group_by':'talep_abone_satispazarlama'}"/>
+                    <filter string="İlçe" name="ilce" context="{'group_by':'talep_abone_ililce'}"/>
+                    <filter string="İl" name="il" context="{'group_by':'talep_abone_il_yazi'}"/>
+                    <filter string="Aboneliği Oluşturan" name="aboneligiolusturan" context="{'group_by':'talep_abone_olusturan'}"/>
+                    <filter string="Durum" name="durum" context="{'group_by':'talep_abone_durumu_yazi'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fibim_talepbilgilendirme_pivot">
+        <field name="name">fibim.talepbilgilendirme.pivot</field>
+        <field name="model">fibim.talepbilgilendirme</field>
+        <field name="arch" type="xml">
+            <pivot string="Talep Pivot">
+                <field name="talep_abone_satispazarlama" type="row"/>
+                <field name="talep_abone_tip" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fibim_talepbilgilendirme_graph">
+        <field name="name">fibim.talepbilgilendirme.graph</field>
+        <field name="model">fibim.talepbilgilendirme</field>
+        <field name="arch" type="xml">
+            <graph string="Talep Bilgilendirme Grafiği" type="pie">
+                <field name="talep_abone_tip"/>
+            </graph>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fibim_talepbilgilendirme_calendar">
+        <field name="name">fibim.talepbilgilendirme.calendar</field>
+        <field name="model">fibim.talepbilgilendirme</field>
+        <field name="arch" type="xml">
+            <calendar string="Talep Bilgilendirme Takvimi" date_start="talep_abone_tarih" color="talep_abone_hiz" mode="month" quick_add="False">
+                <field name="talep_abone_isim"/>
+                <field name="talep_abone_soyisim"/>
+                <field name="talep_abone_durumu_yazi"/>
+                <field name="talep_abone_tarih"/>
+                <field name="talep_abone_olusturan"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="action_talepbilgilendirme" model="ir.actions.act_window">
+        <field name="name">Talep Bilgilendirme</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fibim.talepbilgilendirme</field>
+        <field name="view_mode">tree,form,pivot,graph,calendar</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                İlk Talep Bilgilendirme Kaydet !
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem name="Talep Bilgilendirme" sequence="2" id="fibim_talepbilgilendirme" parent="fibim_root"
+              action="action_talepbilgilendirme"/>
+</odoo>

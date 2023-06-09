@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="oturmaizni_tree" model="ir.ui.view">
+        <field name="name">fibim.oturmaizni.tree</field>
+        <field name="model">fibim.oturmaizni</field>
+        <field name="arch" type="xml">
+            <tree string="Oturma İzni" decoration-danger="current_date &gt;= yabanci_abone_bit_tarih"  decoration-success="current_date &lt; yabanci_abone_bit_tarih" decoration-bf="True">
+                <field name="yabanci_abone_no"/>
+                <field name="yabanci_abone_kimlikno"/>
+                <field name="yabanci_abone_isim"/>
+                <field name="yabanci_abone_soyisim"/>
+                <field name="yabanci_abone_tel"/>
+                <field name="yabanci_abone_adres"/>
+                <field name="yabanci_abone_aciklama"/>
+                <field name="yabanci_abone_uyelik_tar"/>
+                <field name="yabanci_abone_bas_tarih"/>
+                <field name="yabanci_abone_bit_tarih"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="oturmaizni_form" model="ir.ui.view">
+        <field name="name">fibim.oturmaizni.form</field>
+        <field name="model">fibim.oturmaizni</field>
+        <field name="arch" type="xml">
+            <form class="Oturma İzni">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="yabanci_abone_no"/>
+                            <field name="yabanci_abone_kimlikno"/>
+                            <field name="yabanci_abone_isim"/>
+                            <field name="yabanci_abone_soyisim"/>
+                            <field name="yabanci_abone_tel"/>
+                        </group>
+                        <group>
+                            <field name="yabanci_abone_adres"/>
+                            <field name="yabanci_abone_aciklama"/>
+                            <field name="yabanci_abone_uyelik_tar"/>
+                            <field name="yabanci_abone_bas_tarih"/>
+                            <field name="yabanci_abone_bit_tarih"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="fibim_oturmaizni_search" model="ir.ui.view">
+        <field name="name">fibim.oturmaizni.search</field>
+        <field name="model">fibim.oturmaizni</field>
+        <field name="arch" type="xml">
+            <search string="Oturma İzni Ara">
+                <field name="yabanci_abone_no"/>
+                <field name="yabanci_abone_kimlikno"/>
+                <field name="yabanci_abone_isim"/>
+                <field name="yabanci_abone_soyisim"/>
+                <field name="yabanci_abone_tel"/>
+                <field name="yabanci_abone_adres"/>
+                <field name="yabanci_abone_aciklama"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fibim_oturmaizni_calendar">
+        <field name="name">fibim.oturmaizni.calendar</field>
+        <field name="model">fibim.oturmaizni</field>
+        <field name="arch" type="xml">
+            <calendar string="Oturma İzni Takvimi" date_start="yabanci_abone_bas_tarih" date_stop="yabanci_abone_bit_tarih"
+                      color="yabanci_abone_no" mode="month" quick_add="False">
+                <field name="yabanci_abone_isim"/>
+                <field name="yabanci_abone_soyisim"/>
+                <field name="yabanci_abone_uyelik_tar"/>
+                <field name="yabanci_abone_bas_tarih"/>
+                <field name="yabanci_abone_bit_tarih"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="action_oturmaizni" model="ir.actions.act_window">
+        <field name="name">Oturma İzni</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fibim.oturmaizni</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                İlk Oturma İznini Kaydet !
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Oturma İzni" sequence="5" id="fibim_oturmaizni" parent="fibim_root"
+              action="action_oturmaizni"/>
+</odoo>

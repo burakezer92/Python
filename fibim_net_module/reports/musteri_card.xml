@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="report_musteri">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    Abone No :
+                    <t t-esc="doc.abone_no"/>
+                    <br/>
+                    Kullanıcı Adı :
+                    <t t-esc="doc.abone_kullanici_isim"/>
+                    <br/>
+                    İsim :
+                    <t t-esc="doc.abone_isim"/>
+                    <br/>
+                    Anne Adı :
+                    <t t-esc="doc.abone_anne_isim"/>
+                    <br/>
+                    Baba Adı :
+                    <t t-esc="doc.abone_baba_isim"/>
+                    <br/>
+                    Soyisim :
+                    <t t-esc="doc.abone_soyisim"/>
+                    <br/>
+                    Telefon :
+                    <t t-esc="doc.abone_tel"/>
+                    <br/>
+                    Üyelik Tarihi :
+                    <t t-esc="doc.abone_uyelik_bas"/>
+                    <br/>
+                    Üyelik Bitiş Tarihi :
+                    <t t-esc="doc.abone_uyelik_bit"/>
+                    <br/>
+                    Adres :
+                    <t t-esc="doc.abone_adres"/>
+                    <br/>
+                    Tarife :
+                    <t t-esc="doc.abone_tarife"/>
+                    <br/>
+                    Durum :
+                    <t t-esc="doc.abone_durum"/>
+                    <br/>
+                    TC No :
+                    <t t-esc="doc.abone_tc"/>
+                    <br/>
+                    Doğum Tarihi :
+                    <t t-esc="doc.abone_dogum_tarihi"/>
+                    <br/>
+                    Fatura Adresi :
+                    <t t-esc="doc.abone_fatura_adres"/>
+                    <br/>
+                    E-mail :
+                    <t t-esc="doc.abone_mail"/>
+                    <br/>
+                    Şifre :
+                    <t t-esc="doc.abone_sifre"/>
+                    <br/>
+                    Ürün Bilgileri :
+                    <t t-esc="doc.abone_urun"/>
+                    <br/>
+                    Mikrotik Bilgisi :
+                    <t t-esc="doc.abone_mikrotik"/>
+                    <br/>
+                    Tarife Ücreti :
+                    <t t-esc="doc.abone_tarife_fiyat"/>
+                    <br/>
+                    Doğum Yeri :
+                    <t t-esc="doc.abone_dogum_yeri"/>
+                    <br/>
+                    Abone Id :
+                    <t t-esc="doc.abone_id"/>
+                    <br/>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

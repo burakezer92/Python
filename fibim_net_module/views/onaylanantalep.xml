@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="onaylanantalep_tree" model="ir.ui.view">
+        <field name="name">fibim.onaylanantalep.tree</field>
+        <field name="model">fibim.onaylanantalep</field>
+        <field name="arch" type="xml">
+            <tree string="Onaylanan Talep" decoration-primary="onaytalep_abone_durumu_yazi=='Kurulum Yapıldı'">
+                <field name="onaytalep_abone_isim"/>
+                <field name="onaytalep_abone_soyisim"/>
+                <field name="onaytalep_abone_tel"/>
+                <field name="onaytalep_abone_olusturan"/>
+                <field name="onaytalep_abone_ililce"/>
+                <field name="onaytalep_abone_il"/>
+                <field name="onaytalep_abone_adres"/>
+                <field name="onaytalep_abone_tarih"/>
+                <field name="onaytalep_abone_hiz"/>
+                <field name="onaytalep_abone_aciklama"/>
+                <field name="onaytalep_abone_tur"/>
+                <field name="onaytalep_abone_durumu_yazi"/>
+            </tree>
+        </field>
+    </record>
+    <record id="onaylanantalep_form" model="ir.ui.view">
+        <field name="name">fibim.onaylanantalep.form</field>
+        <field name="model">fibim.onaylanantalep</field>
+        <field name="arch" type="xml">
+            <form class="Onaylanan Talep">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="onaytalep_whatsapptus" string="Whatsapp" type="object"
+                                icon="fa-whatsapp" class="oe_stat_button">
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="onaytalep_abone_isim" style="text-transform: uppercase;"/>
+                            <field name="onaytalep_abone_soyisim" style="text-transform: uppercase;"/>
+                            <field name="onaytalep_abone_tel"/>
+                            <field name="onaytalep_whatsappotomesaj" invisible="1"/>
+                            <label for="onaytalep_abone_durumu_yazi"/>
+                            <div class="o_row">
+                                <field name="onaytalep_abone_durumu_yazi"/>
+                                <span>
+                                    <field name="onaytalep_abone_durumu"/>
+                                </span>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="onaytalep_abone_olusturan"/>
+                            <label for="onaytalep_abone_tarih"/>
+                            <div class="o_row">
+                                <field name="onaytalep_abone_tarih"/>
+                                <span>
+                                    <field name="onaytalep_abone_tarih_an"/>
+                                </span>
+                            </div>
+                            <field name="onaytalep_abone_hiz"/>
+                            <field name="onaytalep_abone_tur"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="onaytalep_abone_adres" style="text-transform: uppercase;"/>
+                            <field name="onaytalep_abone_ililce"/>
+                            <field name="onaytalep_abone_il"/>
+                        </group>
+                        <group>
+                            <field name="onaytalep_abone_aciklama"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="fibim_onaylanantalep_search" model="ir.ui.view">
+        <field name="name">fibim.onaylanantalep.search</field>
+        <field name="model">fibim.onaylanantalep</field>
+        <field name="arch" type="xml">
+            <search string="Onaylanan Talep Ara">
+                <field name="onaytalep_abone_isim"/>
+                <field name="onaytalep_abone_soyisim"/>
+                <field name="onaytalep_abone_tel"/>
+                <field name="onaytalep_abone_ililce"/>
+                <field name="onaytalep_abone_adres"/>
+                <field name="onaytalep_abone_aciklama"/>
+                <filter string="Bireysel" name="bireysel" domain="[('onaytalep_abone_tur', '=', 'onaytalep_abone_bireysel')]"/>
+                <filter string="Kurumsal" name="kurumsal"
+                        domain="[('onaytalep_abone_tur', '=', 'onaytalep_abone_kurumsal')]"/>
+                <filter string="Esnaf" name="esnaf"
+                        domain="[('onaytalep_abone_tur', '=', 'onaytalep_abone_esnaf')]"/>
+                <filter string="Kurulum Yapıldı" name="kurulumyapıldı"
+                        domain="[('onaytalep_abone_durumu_yazi', '=', 'Kurulum Yapıldı')]"/>
+                <filter string="Kurulum Yapılmadı" name="kurulumyapılmadı"
+                        domain="[('onaytalep_abone_durumu_yazi', '=', 'Kurulum Yapılmadı')]"/>
+                <group expand="0" string="Grupla">
+                    <filter string="Tür" name="tur" context="{'group_by':'onaytalep_abone_tur'}"/>
+                    <filter string="Hız Talebi" name="hiz" context="{'group_by':'onaytalep_abone_hiz'}"/>
+                    <filter string="İlçe" name="ilce" context="{'group_by':'onaytalep_abone_ililce'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fibim_onaylanantalep_pivot">
+        <field name="name">fibim.onaylanantalep.pivot</field>
+        <field name="model">fibim.onaylanantalep</field>
+        <field name="arch" type="xml">
+            <pivot string="Onaylanan Talep Pivot">
+                <field name="onaytalep_abone_olusturan" type="row"/>
+                <field name="onaytalep_abone_durumu_yazi" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fibim_onaylanantalep_graph">
+        <field name="name">fibim.onaylanantalep.graph</field>
+        <field name="model">fibim.onaylanantalep</field>
+        <field name="arch" type="xml">
+            <graph string="Onaylanan Talep Grafiği" type="pie">
+                <field name="onaytalep_abone_durumu_yazi"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_onaylanantalep" model="ir.actions.act_window">
+        <field name="name">Onaylanan Talep</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fibim.onaylanantalep</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                İlk Onaylanan Talebi Kaydet !
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem name="Onaylanan Talep" sequence="12" id="fibim_onaylanantalep" parent="fibim_root"
+              action="action_onaylanantalep"/>
+</odoo>

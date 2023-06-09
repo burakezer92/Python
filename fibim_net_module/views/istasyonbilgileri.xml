@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="istasyonbilgileri_tree" model="ir.ui.view">
+        <field name="name">fibim.istasyonbilgileri.tree</field>
+        <field name="model">fibim.istasyonbilgileri</field>
+        <field name="arch" type="xml">
+            <tree string="İstasyon Bilgileri">
+                <field name="istasyon_adi"/>
+                <field name="istasyon_mikrotik"/>
+            </tree>
+        </field>
+    </record>
+    <record id="istasyonbilgileri_form" model="ir.ui.view">
+        <field name="name">fibim.istasyonbilgileri.form</field>
+        <field name="model">fibim.istasyonbilgileri</field>
+        <field name="arch" type="xml">
+            <form class="İstasyon Bilgileri">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="istasyon_adi"/>
+                            <field name="istasyon_mikrotik"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_istasyonbilgileri" model="ir.actions.act_window">
+        <field name="name">İstasyon Bilgileri</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fibim.istasyonbilgileri</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                İlk İstasyonu Kaydet !
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="İstasyon Bilgileri" id="fibim_istasyonbilgileri" sequence="7" parent="fibim_root"
+              action="action_istasyonbilgileri"/>
+</odoo>

@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fibim_musteri,access.fibim.musteri,model_fibim_musteri,,1,1,1,1
+access_fibim_tarife,access.fibim.tarife,model_fibim_tarife,,1,1,1,1
+access_fibim_urundetay,access.fibim.urundetay,model_fibim_urundetay,,1,1,1,1
+access_fibim_bolgebayileri,access.fibim.bolgebayileri,model_fibim_bolgebayileri,,1,1,1,1
+access_fibim_ilbayileri,access.fibim.ilbayileri,model_fibim_ilbayileri,,1,1,1,1
+access_fibim_ilcebayileri,access.fibim.ilcebayileri,model_fibim_ilcebayileri,,1,1,1,1
+access_fibim_aldigimizdevreler,access.fibim.aldigimizdevreler,model_fibim_aldigimizdevreler,,1,1,1,1
+access_fibim_sattigimizdevreler,access.fibim.sattigimizdevreler,model_fibim_sattigimizdevreler,,1,1,1,1
+access_fibim_mikrotikislemleri,access.fibim.mikrotikislemleri,model_fibim_mikrotikislemleri,,1,1,1,1
+access_fibim_istasyonbilgileri,access.fibim.istasyonbilgileri,model_fibim_istasyonbilgileri,,1,1,1,1
+access_fibim_ililce,access.fibim.ililce,model_fibim_ililce,,1,0,0,0
+access_fibim_arizasikayet,access.fibim.arizasikayet,model_fibim_arizasikayet,,0,0,0,0
+access_fibim_talepbilgilendirme,access.fibim.talepbilgilendirme,model_fibim_talepbilgilendirme,,0,0,0,0
+access_fibim_onaylanantalep,access.fibim.onaylanantalep,model_fibim_onaylanantalep,,1,1,1,1
+access_fibim_oturmaizni,access.fibim.oturmaizni,model_fibim_oturmaizni,,0,0,0,0
+

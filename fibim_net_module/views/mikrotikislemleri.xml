@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mikrotikislemleri_tree" model="ir.ui.view">
+        <field name="name">fibim.mikrotikislemleri.tree</field>
+        <field name="model">fibim.mikrotikislemleri</field>
+        <field name="arch" type="xml">
+            <tree string="Mikrotik İşlemleri">
+                <field name="mikrotik_adi"/>
+                <field name="mikrotik_kullanici_adi"/>
+                <field name="mikrotik_ip_adresi"/>
+                <field name="mikrotik_secret"/>
+            </tree>
+        </field>
+    </record>
+    <record id="mikrotikislemleri_form" model="ir.ui.view">
+        <field name="name">fibim.mikrotikislemleri.form</field>
+        <field name="model">fibim.mikrotikislemleri</field>
+        <field name="arch" type="xml">
+            <form class="Mikrotik İşlemleri">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="mikrotik_adi"/>
+                            <field name="mikrotik_kullanici_adi"/>
+                            <field name="mikrotik_sifre"/>
+                            <field name="mikrotik_ip_adresi"/>
+                            <field name="mikrotik_secret"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_mikrotikislemleri" model="ir.actions.act_window">
+        <field name="name">Mikrotik İşlemleri</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fibim.mikrotikislemleri</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                İlk Mikrotiği Kaydet !
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem name="Mikrotik İşlemleri" id="fibim_mikrotikislemleri" parent="fibim_root" sequence="6"
+              action="action_mikrotikislemleri"/>
+</odoo>
